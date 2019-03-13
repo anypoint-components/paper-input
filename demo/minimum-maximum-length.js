@@ -1,13 +1,15 @@
-<!--
+/**
 @license
 Copyright 2017 Mulesoft.
 All rights reserved.
--->
-<link rel="import" href="../../polymer/polymer-element.html">
-<link rel="import" href="../../iron-validator-behavior/iron-validator-behavior.html">
-<script>
-class MinimumMaximumLength extends Polymer.IronValidatorMixin(Polymer.Element) {
-  static get is() { return 'minimum-maximum-length'; }
+*/
+import {PolymerElement} from '@polymer/polymer/polymer-element.js';
+import {IronValidatorMixin} from '@polymer/iron-validator-behavior/iron-validator-behavior.js';
+
+class MinimumMaximumLength extends IronValidatorMixin(PolymerElement) {
+  static get is() {
+    return 'minimum-maximum-length';
+  }
   static get properties() {
     return {
       // Error message to display
@@ -38,4 +40,3 @@ class MinimumMaximumLength extends Polymer.IronValidatorMixin(Polymer.Element) {
   }
 }
 window.customElements.define(MinimumMaximumLength.is, MinimumMaximumLength);
-</script>

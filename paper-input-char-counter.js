@@ -1,34 +1,14 @@
-<!--
+/**
 @license
 Copyright 2017 Mulesoft.
 
 All rights reserved.
--->
-<link rel="import" href="../polymer/polymer-element.html">
-<link rel="import" href="../anypoint-styles/typography.html">
-<link rel="import" href="paper-input-addon-behavior.html">
-<dom-module id="paper-input-char-counter">
-  <template>
-    <style>
-    :host {
-      display: inline-block;
-      float: right;
-      @apply --arc-font-caption;
-      @apply --paper-input-char-counter;
-    }
-
-    :host([hidden]) {
-      display: none !important;
-    }
-
-    :host(:dir(rtl)) {
-      float: left;
-    }
-    </style>
-    <span>[[_charCounterStr]]</span>
-  </template>
-</dom-module>
-<script>
+*/
+import {PolymerElement} from '@polymer/polymer/polymer-element.js';
+import {PaperInputAddonBehavior} from './paper-input-addon-behavior.js';
+import {mixinBehaviors} from '@polymer/polymer/lib/legacy/class.js';
+import {html} from '@polymer/polymer/lib/utils/html-tag.js';
+import '@advanced-rest-client/anypoint-styles/typography.js';
 /**
  * `<paper-input-char-counter>` is a character counter for use with `<paper-input-container>`. It
  * shows the number of characters entered in the input and the max length if it is specified.
@@ -50,8 +30,31 @@ All rights reserved.
  * @appliesMixin Polymer.PaperInputAddonBehavior
  * @memberof AnypointElements
  */
-class PaperInputCharCounter extends Polymer.mixinBehaviors([Polymer.PaperInputAddonBehavior], Polymer.Element) {
-  static get is() { return 'paper-input-char-counter'; }
+class PaperInputCharCounter extends mixinBehaviors([PaperInputAddonBehavior], PolymerElement) {
+  static get template() {
+    return html`<style>
+    :host {
+      display: inline-block;
+      float: right;
+      @apply --arc-font-caption;
+      @apply --paper-input-char-counter;
+    }
+
+    :host([hidden]) {
+      display: none !important;
+    }
+
+    :host(:dir(rtl)) {
+      float: left;
+    }
+    </style>
+    <span>[[_charCounterStr]]</span>`;
+  }
+
+  static get is() {
+    return 'paper-input-char-counter';
+  }
+
   static get properties() {
     return {
       _charCounterStr: {
@@ -84,4 +87,3 @@ class PaperInputCharCounter extends Polymer.mixinBehaviors([Polymer.PaperInputAd
   }
 }
 window.customElements.define(PaperInputCharCounter.is, PaperInputCharCounter);
-</script>

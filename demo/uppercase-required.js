@@ -1,13 +1,15 @@
-<!--
+/**
 @license
 Copyright 2017 Mulesoft.
 All rights reserved.
--->
-<link rel="import" href="../../polymer/polymer-element.html">
-<link rel="import" href="../../iron-validator-behavior/iron-validator-behavior.html">
-<script>
-class UppercaseRequired extends Polymer.IronValidatorMixin(Polymer.Element) {
-  static get is() { return 'uppercase-required'; }
+*/
+import {PolymerElement} from '@polymer/polymer/polymer-element.js';
+import {IronValidatorMixin} from '@polymer/iron-validator-behavior/iron-validator-behavior.js';
+
+class UppercaseRequired extends IronValidatorMixin(PolymerElement) {
+  static get is() {
+    return 'uppercase-required';
+  }
   static get properties() {
     return {
       // Error message to display
@@ -22,4 +24,3 @@ class UppercaseRequired extends Polymer.IronValidatorMixin(Polymer.Element) {
   }
 }
 window.customElements.define(UppercaseRequired.is, UppercaseRequired);
-</script>

@@ -1,18 +1,49 @@
-<!--
+/**
 @license
 Copyright 2017 Mulesoft.
 
 All rights reserved.
--->
-<link rel="import" href="../polymer/polymer-element.html">
-<link rel="import" href="../shadycss/apply-shim.html">
-<link rel="import" href="../polymer/lib/elements/custom-style.html">
-<link rel="import" href="../iron-input/iron-input.html">
-<link rel="import" href="paper-input-container.html">
-<link rel="import" href="paper-input-behavior.html">
-<link rel="import" href="paper-input-error.html">
-<dom-module id="paper-input">
-  <template>
+*/
+import {PolymerElement} from '@polymer/polymer/polymer-element.js';
+import {PaperInputBehavior} from './paper-input-behavior.js';
+import {html} from '@polymer/polymer/lib/utils/html-tag.js';
+import '@webcomponents/shadycss/entrypoints/apply-shim.js';
+import '@polymer/polymer/lib/elements/custom-style.js';
+import '@polymer/iron-input/iron-input.js';
+import './paper-input-container.js';
+import './paper-input-error.js';
+
+/**
+ * `<paper-input>` single line text input styled for the Anypoint platform as a Polymer
+ * powered web component
+ *
+ * It may include an optional error message.
+ *
+ * ```html
+ * <paper-input required error-message="Value is required"></paper-input>
+ * ```
+ *
+ * It may include a custom validator(s).
+ *
+ * ```html
+ * <paper-input validator="my-validator" error-message="Value is required"></paper-input>
+ * ```
+ *
+ * See `Anypoint.AnypointValidatableBehavior` for API and examples.
+ *
+ * ### Styling
+ *
+ * See `anypoint-text-container` for styling options.
+ *
+ * @customElement
+ * @polymer
+ * @demo demo/index.html
+ * @appliesMixin Polymer.PaperInputBehavior
+ * @memberof AnypointElements
+ */
+class PaperInput extends PaperInputBehavior(PolymerElement) {
+  static get template() {
+    return html`
     <style>
     :host {
       display: block;
@@ -96,101 +127,28 @@ All rights reserved.
     }
     </style>
 
-    <paper-input-container
-      auto-validate$="[[autoValidate]]"
-      disabled$="[[disabled]]"
-      invalid="[[invalid]]"
-      placeholder="[[placeholder]]">
+    <paper-input-container auto-validate\$="[[autoValidate]]" disabled\$="[[disabled]]" invalid="[[invalid]]" placeholder="[[placeholder]]">
 
       <slot name="prefix" slot="prefix"></slot>
 
-      <label hidden$="[[!label]]" aria-hidden="true" for$="[[_inputId]]" slot="label">[[label]]</label>
+      <label hidden\$="[[!label]]" aria-hidden="true" for\$="[[_inputId]]" slot="label">[[label]]</label>
 
-      <iron-input bind-value="{{value}}" slot="input"
-        class="input-element"
-        id$="[[_inputId]]"
-        maxlength$="[[maxlength]]"
-        allowed-pattern="[[allowedPattern]]"
-        invalid="{{invalid}}"
-        validator="[[validator]]"
-        validation-states="{{validationStates}}">
-        <input
-          aria-labelledby$="[[_ariaLabelledBy]]"
-          aria-describedby$="[[_ariaDescribedBy]]"
-          disabled$="[[disabled]]"
-          title$="[[title]]"
-          type$="[[type]]"
-          pattern$="[[pattern]]"
-          required$="[[required]]"
-          autocomplete$="[[autocomplete]]"
-          autofocus$="[[autofocus]]"
-          inputmode$="[[inputmode]]"
-          minlength$="[[minlength]]"
-          maxlength$="[[maxlength]]"
-          min$="[[min]]"
-          max$="[[max]]"
-          step$="[[step]]"
-          name$="[[name]]"
-          placeholder$="[[placeholder]]"
-          readonly$="[[readonly]]"
-          list$="[[list]]"
-          size$="[[size]]"
-          autocapitalize$="[[autocapitalize]]"
-          autocorrect$="[[autocorrect]]"
-          on-change="_onChange"
-          tabindex$="[[tabIndex]]"
-          autosave$="[[autosave]]"
-          results$="[[results]]"
-          accept$="[[accept]]"
-          multiple$="[[multiple]]">
+      <iron-input bind-value="{{value}}" slot="input" class="input-element" id\$="[[_inputId]]" maxlength\$="[[maxlength]]" allowed-pattern="[[allowedPattern]]" invalid="{{invalid}}" validator="[[validator]]" validation-states="{{validationStates}}">
+        <input aria-labelledby\$="[[_ariaLabelledBy]]" aria-describedby\$="[[_ariaDescribedBy]]" disabled\$="[[disabled]]" title\$="[[title]]" type\$="[[type]]" pattern\$="[[pattern]]" required\$="[[required]]" autocomplete\$="[[autocomplete]]" autofocus\$="[[autofocus]]" inputmode\$="[[inputmode]]" minlength\$="[[minlength]]" maxlength\$="[[maxlength]]" min\$="[[min]]" max\$="[[max]]" step\$="[[step]]" name\$="[[name]]" placeholder\$="[[placeholder]]" readonly\$="[[readonly]]" list\$="[[list]]" size\$="[[size]]" autocapitalize\$="[[autocapitalize]]" autocorrect\$="[[autocorrect]]" on-change="_onChange" tabindex\$="[[tabIndex]]" autosave\$="[[autosave]]" results\$="[[results]]" accept\$="[[accept]]" multiple\$="[[multiple]]">
       </iron-input>
 
       <slot name="suffix" slot="suffix"></slot>
 
       <template is="dom-if" if="[[hasValidationMessage]]">
-        <paper-input-error
-          slot="add-on"
-          aria-live="assertive"
-          invalid="[[invalid]]"
-          focused="[[focused]]"
-          validation-states="{{validationStates}}"
-          horizontal-align="right">[[errorMessage]]</paper-input-error>
+        <paper-input-error slot="add-on" aria-live="assertive" invalid="[[invalid]]" focused="[[focused]]" validation-states="{{validationStates}}" horizontal-align="right">[[errorMessage]]</paper-input-error>
       </template>
     </paper-input-container>
-  </template>
-</dom-module>
-<script>
+`;
+  }
 
-/**
- * `<paper-input>` single line text input styled for the Anypoint platform as a Polymer
- * powered web component
- *
- * It may include an optional error message.
- *
- * ```html
- * <paper-input required error-message="Value is required"></paper-input>
- * ```
- *
- * It may include a custom validator(s).
- *
- * ```html
- * <paper-input validator="my-validator" error-message="Value is required"></paper-input>
- * ```
- *
- * See `Anypoint.AnypointValidatableBehavior` for API and examples.
- *
- * ### Styling
- *
- * See `anypoint-text-container` for styling options.
- *
- * @customElement
- * @polymer
- * @demo demo/index.html
- * @appliesMixin Polymer.PaperInputBehavior
- * @memberof AnypointElements
- */
-class PaperInput extends Polymer.PaperInputBehavior(Polymer.Element) {
-  static get is() { return 'paper-input'; }
+  static get is() {
+    return 'paper-input';
+  }
 
   constructor() {
     super();
@@ -224,4 +182,3 @@ class PaperInput extends Polymer.PaperInputBehavior(Polymer.Element) {
   }
 }
 window.customElements.define(PaperInput.is, PaperInput);
-</script>

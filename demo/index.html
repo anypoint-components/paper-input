@@ -11,20 +11,21 @@ All rights reserved.
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
   <title>paper-input demo</title>
-  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
-  <link rel="import" href="../../shadycss/apply-shim.html">
-  <link rel="import" href="../../polymer/lib/elements/custom-style.html">
-  <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
-  <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
-  <link rel="import" href="../../iron-icon/iron-icon.html">
-  <link rel="import" href="../../paper-icon-button/paper-icon-button.html">
-  <link rel="import" href="../../iron-icon/iron-icon.html">
-  <link rel="import" href="../../iron-icons/iron-icons.html">
-  <link rel="import" href="../paper-input.html">
-  <link rel="import" href="../paper-textarea.html">
-  <link rel="import" href="minimum-maximum-length.html">
-  <link rel="import" href="number-required.html">
-  <link rel="import" href="uppercase-required.html">
+  <script src="../../../@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+  <script type="module" src="../../../@webcomponents/shadycss/entrypoints/apply-shim.js"></script>
+  <script type="module" src="../../../@polymer/polymer/lib/elements/custom-style.js"></script>
+  <script type="module" src="../../../@polymer/iron-demo-helpers/demo-pages-shared-styles.js"></script>
+  <script type="module" src="../../../@polymer/iron-demo-helpers/demo-snippet.js"></script>
+  <script type="module" src="../../../@polymer/iron-icon/iron-icon.js"></script>
+  <script type="module" src="../../../@polymer/paper-icon-button/paper-icon-button.js"></script>
+  <script type="module" src="../../../@polymer/iron-icon/iron-icon.js"></script>
+  <script type="module" src="../../../@polymer/iron-icons/iron-icons.js"></script>
+  <script type="module" src="../paper-input.js"></script>
+  <script type="module" src="../paper-textarea.js"></script>
+  <script type="module" src="./minimum-maximum-length.js"></script>
+  <script type="module" src="./number-required.js"></script>
+  <script type="module" src="./uppercase-required.js"></script>
+
   <custom-style>
     <style is="custom-style" include="demo-pages-shared-styles">
     body {
@@ -43,7 +44,7 @@ All rights reserved.
       <template>
         <paper-input label="Text input"></paper-input>
         <paper-input label="Password input" type="password"></paper-input>
-        <paper-input label="Disabled input" disabled></paper-input>
+        <paper-input label="Disabled input" disabled=""></paper-input>
         <paper-input label="Inputs can be a date input" type="date"></paper-input>
         <paper-input label="Placaholder input" placeholder="Placeholder has higher priority than label"></paper-input>
         <paper-textarea class="tarea" label="Textarea input"></paper-textarea>
@@ -56,10 +57,10 @@ All rights reserved.
     <h3>Inputs can validate automatically or on demand, and can have custom error messages</h3>
     <demo-snippet>
       <template>
-        <paper-input label="this input requires some text" required auto-validate error-message="needs some text!"></paper-input>
-        <paper-input label="this input requires letters only" auto-validate pattern="[a-zA-Z]*" error-message="letters only!"></paper-input>
-        <paper-input label="this input will only let you type letters" auto-validate allowed-pattern="[a-zA-Z]"></paper-input>
-        <paper-input id="inputForValidation" required label="this input is manually validated" pattern="[a-zA-Z]*" error-message="letters only!"></paper-input>
+        <paper-input label="this input requires some text" required="" auto-validate="" error-message="needs some text!"></paper-input>
+        <paper-input label="this input requires letters only" auto-validate="" pattern="[a-zA-Z]*" error-message="letters only!"></paper-input>
+        <paper-input label="this input will only let you type letters" auto-validate="" allowed-pattern="[a-zA-Z]"></paper-input>
+        <paper-input id="inputForValidation" required="" label="this input is manually validated" pattern="[a-zA-Z]*" error-message="letters only!"></paper-input>
         <button onclick="validate()">Validate!</button>
       </template>
     </demo-snippet>
@@ -83,7 +84,7 @@ All rights reserved.
     <h3>Inputs can use custom validators</h3>
     <demo-snippet>
       <template>
-        <paper-input label="Many validators" auto-validate validator="minimum-maximum-length number-required uppercase-required"></paper-input>
+        <paper-input label="Many validators" auto-validate="" validator="minimum-maximum-length number-required uppercase-required"></paper-input>
       </template>
     </demo-snippet>
   </div>

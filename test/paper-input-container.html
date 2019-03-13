@@ -8,13 +8,13 @@ All rights reserved.
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
-  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
-  <script src="../../web-component-tester/browser.js"></script>
-  <script src="../../iron-test-helpers/test-helpers.js"></script>
-  <script src="../../iron-test-helpers/mock-interactions.js"></script>
-  <link rel="import" href="letters-only.html">
-  <link rel="import" href="../../iron-input/iron-input.html">
-  <link rel="import" href="../paper-input-container.html">
+  <script src="../../../@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+  <script src="../../../wct-browser-legacy/browser.js"></script>
+  <script src="../../../@polymer/iron-test-helpers/test-helpers.js" type="module"></script>
+  <script src="../../../@polymer/iron-test-helpers/mock-interactions.js" type="module"></script>
+  <script type="module" src="./letters-only.js"></script>
+  <script type="module" src="../../../@polymer/iron-input/iron-input.js"></script>
+  <script type="module" src="../paper-input-container.js"></script>
 </head>
 
 <body>
@@ -111,82 +111,85 @@ All rights reserved.
       </paper-input-container>
     </template>
   </test-fixture>
-  <script>
-  function getTransform(node) {
-    const style = getComputedStyle(node);
-    return style.transform || style.webkitTransform;
-  }
-  suite('basic', () => {
-    test('can be created imperatively', () => {
-      const container = document.createElement('paper-input-container');
-      const input = document.createElement('iron-input');
-      input.slot = 'input';
-      const label = document.createElement('label');
-      label.innerHTML = 'label';
-      label.slot = 'label';
-      container.appendChild(label);
-      container.appendChild(input);
-      document.body.appendChild(container);
-      assert.isOk(container);
-      document.body.removeChild(container);
+  <script type="module">
+import './letters-only.js';
+import '@polymer/iron-input/iron-input.js';
+import '../paper-input-container.js';
+function getTransform(node) {
+  const style = getComputedStyle(node);
+  return style.transform || style.webkitTransform;
+}
+suite('basic', () => {
+  test('can be created imperatively', () => {
+    const container = document.createElement('paper-input-container');
+    const input = document.createElement('iron-input');
+    input.slot = 'input';
+    const label = document.createElement('label');
+    label.innerHTML = 'label';
+    label.slot = 'label';
+    container.appendChild(label);
+    container.appendChild(input);
+    document.body.appendChild(container);
+    assert.isOk(container);
+    document.body.removeChild(container);
+  });
+});
+suite('label position', () => {
+  test('label is visible by default', () => {
+    const container = fixture('basic');
+    assert.equal(getComputedStyle(container.querySelector('#l')).visibility,
+      'visible', 'label has visibility:visible');
+  });
+});
+
+suite('validation', () => {
+  test('styled when the input is set to an invalid value with auto-validate', (done) => {
+    const container = fixture('auto-validate-numbers');
+    flush(() => {
+      const input = container.querySelector('#i');
+      input.bindValue = 'foobar';
+      input.validate();
+      assert.isTrue(container.invalid, 'invalid is true');
+      done();
     });
   });
-  suite('label position', () => {
-    test('label is visible by default', () => {
-      const container = fixture('basic');
-      assert.equal(getComputedStyle(container.querySelector('#l')).visibility,
-        'visible', 'label has visibility:visible');
+
+  let title = 'styled when the input is set to an invalid value with ';
+  title += 'auto-validate, with validator';
+  test(title, (done) => {
+    const container = fixture('auto-validate-validator');
+    flush(() => {
+      const input = container.querySelector('#i');
+      input.bindValue = '12312a3';
+      input.validate();
+      assert.isTrue(container.invalid, 'invalid is true');
+      done();
     });
   });
 
-  suite('validation', () => {
-    test('styled when the input is set to an invalid value with auto-validate', (done) => {
-      const container = fixture('auto-validate-numbers');
-      flush(() => {
-        const input = container.querySelector('#i');
-        input.bindValue = 'foobar';
-        input.validate();
-        assert.isTrue(container.invalid, 'invalid is true');
-        done();
-      });
-    });
-
-    let title = 'styled when the input is set to an invalid value with ';
-    title += 'auto-validate, with validator';
-    test(title, (done) => {
-      const container = fixture('auto-validate-validator');
-      flush(() => {
-        const input = container.querySelector('#i');
-        input.bindValue = '12312a3';
-        input.validate();
-        assert.isTrue(container.invalid, 'invalid is true');
-        done();
-      });
-    });
-
-    test('styled when the input is set to an invalid value with manual validation', (done) => {
-      const container = fixture('manual-validate-numbers');
-      flush(() => {
-        const input = container.querySelector('#i');
-        input.bindValue = 'foobar';
-        input.validate();
-        assert.isTrue(container.invalid, 'invalid is true');
-        done();
-      });
-    });
-
-    test('styled when the input is manually validated and required', function(done) {
-      const container = fixture('required-validate');
-      flush(() => {
-        const input = container.querySelector('#i');
-        assert.isFalse(container.invalid, 'invalid is false');
-        input.validate();
-        assert.isTrue(container.invalid, 'invalid is true');
-        done();
-      });
+  test('styled when the input is set to an invalid value with manual validation', (done) => {
+    const container = fixture('manual-validate-numbers');
+    flush(() => {
+      const input = container.querySelector('#i');
+      input.bindValue = 'foobar';
+      input.validate();
+      assert.isTrue(container.invalid, 'invalid is true');
+      done();
     });
   });
-  </script>
+
+  test('styled when the input is manually validated and required', function(done) {
+    const container = fixture('required-validate');
+    flush(() => {
+      const input = container.querySelector('#i');
+      assert.isFalse(container.invalid, 'invalid is false');
+      input.validate();
+      assert.isTrue(container.invalid, 'invalid is true');
+      done();
+    });
+  });
+});
+</script>
 </body>
 
 </html>

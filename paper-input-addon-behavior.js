@@ -1,11 +1,11 @@
-<!--
+/**
 @license
 Copyright 2017 Mulesoft.
 
 All rights reserved.
--->
-<link rel="import" href="../polymer/lib/utils/mixin.html">
-<script>
+*/
+import {dedupingMixin} from '@polymer/polymer/lib/utils/mixin.js';
+
 /**
  * Use `Polymer.PaperInputAddonBehavior` to implement an add-on for `<paper-input-container>`. A
  * add-on appears below the input, and may display information based on the input value and
@@ -13,9 +13,8 @@ All rights reserved.
  *
  * @polymer
  * @mixinFunction
- * @memberof Polymer
  */
-Polymer.PaperInputAddonBehavior = Polymer.dedupingMixin((base) => class extends base {
+export const PaperInputAddonBehavior = dedupingMixin((base) => class extends base {
   connectedCallback() {
     super.connectedCallback();
     this.fire('addon-attached');
@@ -37,4 +36,3 @@ Polymer.PaperInputAddonBehavior = Polymer.dedupingMixin((base) => class extends 
    */
   update(state) {}
 });
-</script>
